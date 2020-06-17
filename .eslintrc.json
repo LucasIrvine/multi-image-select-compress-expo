@@ -1,30 +1,37 @@
 {
-    "env": {
-        "es2020": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb", 
-        "airbnb/hooks"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 11,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "no-tabs": "off",
-        "indent": ["error", "tab"],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "double"],
-        "semi": ["error", "always"],
-        "no-console": "off"
-    }
+	"env": {
+		"es2020": true,
+		"node": true,
+		"mocha": true
+	},
+	"extends": [
+		"eslint:recommended",
+		
+		"airbnb",
+		"airbnb/hooks"
+	],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 11,
+		"sourceType": "module"
+	},
+	"plugins": ["react"],
+	"rules": {
+		"object-curly-newline": ["error", {
+			"ObjectExpression": "always",
+			"ObjectPattern": { "multiline": true },
+			"ImportDeclaration": "never",
+			"ExportDeclaration": { "multiline": true, "minProperties": 3 }
+		}],
+		"react/jsx-indent": ["error", "tab"],
+		"arrow-body-style": ["error", "always"],
+		"no-tabs": "off",
+		"indent": ["error", "tab"],
+		"linebreak-style": ["error", "unix"],
+		"quotes": ["error", "double"],
+		"semi": ["error", "always"],
+		"no-console": "off"
+	}
 }
