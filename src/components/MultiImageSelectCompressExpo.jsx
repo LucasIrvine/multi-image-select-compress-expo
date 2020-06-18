@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import useMediaLibraryImages from "../hooks/useMediaLibraryImages";
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,7 +15,12 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-	const renderImages = () => {};
+	const [{ images, fetchMedia }] = useMediaLibraryImages();
+
+	const renderImages = () => {
+		console.log(images);
+		console.log(fetchMedia);
+	};
 
 	return (
 		<SafeAreaView style={styles.container}>
