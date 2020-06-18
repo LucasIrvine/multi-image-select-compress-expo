@@ -11,32 +11,38 @@ const useMediaLibraryImages = () => {
 
 	const fetchMedia = async () => {
 		console.log("calling fetchMedia()");
-
-		if (!initialFetch) {
-			setInitialFetch(true);
-		}
-
 		setIsImagesError(false);
 		setIsImagesLoading(true);
 
 		try {
+			// initial params
 			const params = {
-				first: 100,
+				first: 50,
 			};
 
+			// if current count
 			if (pagingCursor) {
 				params.after = pagingCursor;
 			}
 
+			// if no media pages left just return
 			if (!hasNextPage) return;
 
-			const media = await MediaLibrary.getAssetsAsync(params);
+			// set initial fetch
+			if (!initialFetch) {
+				setInitialFetch(true);
+			}
 
-			if (pagingCursor === media.endCursor) return;
+			// get next media chunk
+			const newMedia = await MediaLibrary.getAssetsAsync(params);
 
-			setImages([...images, ...media.assets]);
-			setPagingCursor(media.endCursor);
-			setHasNextPage(media.hasNextPage);
+			// just return if end cursor
+			if (pagingCursor === newMedia.endCursor) return;
+
+			// append new images, update cursor and hasNextPage flag
+			setImages([...images, ...newMedia.assets]);
+			setPagingCursor(newMedia.endCursor);
+			setHasNextPage(newMedia.hasNextPage);
 		} catch (error) {
 			setIsImagesError(true);
 		}
