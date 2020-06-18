@@ -58,8 +58,7 @@ export default ({ onConfirm }) => {
 			// find the larger of the 2 to make sure we are not enlarging the image
 			const largerDim = width > height ? width : height;
 			// if the dimension is larger than preferredWidth resize to preferredWidth =
-			const largestSideValue =
-				largerDim > preferredWidth ? preferredWidth : largerDim;
+			const largestSideValue = largerDim > preferredWidth ? preferredWidth : largerDim;
 			// edit transform config with new data
 			if (width > height) {
 				transformConfig = {
@@ -71,7 +70,7 @@ export default ({ onConfirm }) => {
 				};
 			}
 		}
-
+		// Resize and compress promise
 		return ImageManipulator.manipulateAsync(
 			img.uri,
 			[
@@ -98,9 +97,7 @@ export default ({ onConfirm }) => {
 		const compressedImages = await Promise.all(compressedImagePromises);
 		// get info of the compressed versions of the images
 		// returns a FileSystem.getInfoAsync promise that resolves to a info object
-		const compressedMediaInfoPromises = getCompressedMediaInfo(
-			compressedImages
-		);
+		const compressedMediaInfoPromises = getCompressedMediaInfo(compressedImages);
 		// when all compressed image info is retrieved then call onImagesCompressed
 		const compressedMediaInfo = await Promise.all(compressedMediaInfoPromises);
 		// props.onImagesCompressed(compressedMediaInfo)
@@ -163,10 +160,15 @@ export default ({ onConfirm }) => {
 		<SafeAreaView style={styles.container}>
 			<Header
 				processingImages={processingImages}
-				upload={() => {
+				cancelText="cancel"
+				cancelFunc={() => {
+					console.log("cancel");
+				}}
+				confirmFunc={() => {
 					setProcessingImages(true);
 					compressImages();
 				}}
+				confirmText="Upload"
 			/>
 			<View>{renderImages()}</View>
 		</SafeAreaView>
