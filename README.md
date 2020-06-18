@@ -5,8 +5,8 @@ A react native component that allows the user to select one or more images from 
 ## To-Dos
 
 - ~~Project shell~~
-- Decide approach to getting media info and create media pagination hook
-- Build basic UI that reacts to media pagination hook
+- ~~Decide approach to getting media info and create media pagination hook~~
+- ~~Build basic UI that reacts to media pagination hook~~
 - Determine approach to compression and resizing and create compression hook
 - Determine compressed image local directory storage and clean up
 - Determine onSelected/compressed response object

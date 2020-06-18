@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native";
+import {
+	StyleSheet,
+	Text,
+	View,
+	SafeAreaView,
+	FlatList,
+	Dimensions,
+} from "react-native";
 import useMediaLibraryImages from "../hooks/useMediaLibraryImages";
 import ImageTile from "./ImageTile";
 
@@ -16,17 +23,31 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
+	const windowWidth = Dimensions.get("window").width;
 	const [selectedImages, setSelectedImages] = useState({});
 	const [{ images, fetchMedia }] = useMediaLibraryImages();
 
-	const selectImage = () => {
-		console.log("image selected");
+	const selectImage = (index) => {
+		//clone selected state
+		let selectedCopy = { ...selectedImages };
+		//if already existing at index unselect else mark as selected
+		if (selectedCopy[index]) {
+			delete selectedCopy[index];
+		} else {
+			selectedCopy[index] = true;
+		}
+		//TODO: parameterize maxImages
+		if (Object.keys(selectedCopy).length > 20) {
+			return;
+		}
+		//set selections to state
+		setSelectedImages(selectedCopy || {});
 	};
 
 	const renderImageTile = ({ item, index }) => {
 		return (
 			<ImageTile
-				width={50}
+				width={windowWidth / 3}
 				imageUri={item.uri}
 				index={index}
 				selected={!!selectedImages && !!selectedImages[index]}
@@ -48,7 +69,10 @@ export default () => {
 				}}
 				onEndReachedThreshold={0.5}
 				ListEmptyComponent={
-					<Text>No images to show, make sure the app has access to your camera roll in your phone's settings.</Text>
+					<Text>
+						No images to show, make sure the app has access to your camera roll
+						in your phone's settings.
+					</Text>
 				}
 				initialNumToRender={50}
 			/>
