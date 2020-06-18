@@ -18,7 +18,7 @@ export default () => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<Text>Hello bud</Text>
+			<Text>Hello bud how are you, good i hope!</Text>
 			<View>{renderImages()}</View>
 		</SafeAreaView>
 	);
