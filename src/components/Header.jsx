@@ -6,22 +6,27 @@ import PropTypes from "prop-types";
 const styles = StyleSheet.create({
 	headerWrap: {
 		backgroundColor: "white",
-		height: 50,
+		height: 60,
 		width: "100%",
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		borderBottomColor: "#999999",
 	},
 	buttonWrap: {
 		paddingHorizontal: 10,
 	},
-	cancelText: {
-		color: "rgb(0,122,255)",
+	buttonText: {
 		fontSize: 18,
+		color: "#000000",
 	},
-	confirmText: {
-		color: "rgb(0,122,255)",
+	headingText: {
 		fontSize: 18,
+		width: "60%",
+		textAlign: "center",
+		color: "#000000",
+		fontWeight: "bold",
 	},
 });
 
@@ -31,21 +36,43 @@ export default function Header({
 	confirmText,
 	confirmFunc,
 	processingImages,
+	headingText,
+	colors,
 }) {
 	return (
 		<View style={styles.headerWrap}>
 			<TouchableOpacity onPress={cancelFunc} style={styles.buttonWrap}>
-				<Text allowFontScaling={false} style={styles.cancelText}>
+				<Text
+					allowFontScaling={false}
+					style={[styles.buttonText, { color: colors.cancelButton }]}
+				>
 					{cancelText}
 				</Text>
 			</TouchableOpacity>
-			{!processingImages && (
-				<TouchableOpacity onPress={confirmFunc} style={styles.buttonWrap}>
-					<Text allowFontScaling={false} style={styles.confirmText}>
-						{confirmText}
-					</Text>
-				</TouchableOpacity>
-			)}
+			<Text
+				allowFontScaling={false}
+				numberOfLines={1}
+				ellipsizeMode="tail"
+				style={[styles.headingText, { color: colors.headingText }]}
+			>
+				{headingText}
+			</Text>
+
+			<TouchableOpacity
+				onPress={() => {
+					if (!processingImages) {
+						confirmFunc();
+					}
+				}}
+				style={styles.buttonWrap}
+			>
+				<Text
+					allowFontScaling={false}
+					style={[styles.buttonText, { color: colors.confirmButton }]}
+				>
+					{confirmText}
+				</Text>
+			</TouchableOpacity>
 		</View>
 	);
 }
@@ -57,4 +84,6 @@ Header.propTypes = {
 	confirmText: PropTypes.string.isRequired,
 	confirmFunc: PropTypes.func.isRequired,
 	processingImages: PropTypes.bool.isRequired,
+	headingText: PropTypes.string.isRequired,
+	colors: PropTypes.object,
 };

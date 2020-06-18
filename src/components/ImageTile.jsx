@@ -24,6 +24,7 @@ export default function ImageTile({
 	selected,
 	selectImage,
 	processingImages,
+	colors,
 }) {
 	return (
 		<TouchableHighlight
@@ -48,7 +49,7 @@ export default function ImageTile({
 					<MaterialCommunityIcons
 						name="checkbox-marked-circle"
 						size={24}
-						style={styles.selectedIcon}
+						style={[styles.selectedIcon, { color: colors.selectedCheck }]}
 					/>
 				)}
 			</View>
@@ -64,4 +65,5 @@ ImageTile.propTypes = {
 	selected: PropTypes.bool.isRequired,
 	selectImage: PropTypes.func.isRequired,
 	processingImages: PropTypes.bool.isRequired,
+	colors: PropTypes.object.isRequired,
 };

@@ -9,6 +9,15 @@ const useMediaLibraryImages = () => {
 	const [isImagesLoading, setIsImagesLoading] = useState(false);
 	const [isImagesError, setIsImagesError] = useState(false);
 
+	const resetImageState = () => {
+		setInitialFetch(false);
+		setImages([]);
+		setPagingCursor(false);
+		setHasNextPage(true);
+		setIsImagesError(false);
+		setIsImagesLoading(true);
+	};
+
 	const fetchMedia = async () => {
 		// set initial fetch
 		if (!initialFetch) {
@@ -55,6 +64,7 @@ const useMediaLibraryImages = () => {
 			hasNextPage,
 			isImagesLoading,
 			isImagesError,
+			resetImageState,
 			fetchMedia,
 		},
 		[],
