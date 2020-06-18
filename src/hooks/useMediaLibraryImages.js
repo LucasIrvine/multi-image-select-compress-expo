@@ -10,35 +10,29 @@ const useMediaLibraryImages = () => {
 	const [isImagesError, setIsImagesError] = useState(false);
 
 	const fetchMedia = async () => {
-		console.log("calling fetchMedia()");
+		// set initial fetch
+		if (!initialFetch) {
+			setInitialFetch(true);
+		}
+		// reset flags
 		setIsImagesError(false);
 		setIsImagesLoading(true);
-
+		// try to fetch media from expo-media-library
 		try {
 			// initial params
 			const params = {
 				first: 50,
 			};
-
 			// if current count
 			if (pagingCursor) {
 				params.after = pagingCursor;
 			}
-
 			// if no media pages left just return
 			if (!hasNextPage) return;
-
-			// set initial fetch
-			if (!initialFetch) {
-				setInitialFetch(true);
-			}
-
 			// get next media chunk
 			const newMedia = await MediaLibrary.getAssetsAsync(params);
-
 			// just return if end cursor
 			if (pagingCursor === newMedia.endCursor) return;
-
 			// append new images, update cursor and hasNextPage flag
 			setImages([...images, ...newMedia.assets]);
 			setPagingCursor(newMedia.endCursor);

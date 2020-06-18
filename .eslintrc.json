@@ -4,12 +4,7 @@
 		"node": true,
 		"mocha": true
 	},
-	"extends": [
-		"eslint:recommended",
-		
-		"airbnb",
-		"airbnb/hooks"
-	],
+	"extends": ["eslint:recommended", "airbnb", "airbnb/hooks"],
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true
@@ -19,12 +14,15 @@
 	},
 	"plugins": ["react"],
 	"rules": {
-		"object-curly-newline": ["error", {
-			"ObjectExpression": "always",
-			"ObjectPattern": { "multiline": true },
-			"ImportDeclaration": "never",
-			"ExportDeclaration": { "multiline": true, "minProperties": 3 }
-		}],
+		"object-curly-newline": [
+			"error",
+			{
+				"ObjectExpression": "always",
+				"ObjectPattern": { "multiline": true },
+				"ImportDeclaration": "never",
+				"ExportDeclaration": { "multiline": true, "minProperties": 3 }
+			}
+		],
 		"react/jsx-indent": ["error", "tab"],
 		"arrow-body-style": ["error", "always"],
 		"no-tabs": "off",
@@ -32,6 +30,7 @@
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "double"],
 		"semi": ["error", "always"],
-		"no-console": "off"
+		"no-console": "off",
+		"react/jsx-indent-props": ["tab", "tab"]
 	}
 }
