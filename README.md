@@ -11,7 +11,8 @@ A react native component that allows the user to select one or more images from 
 - ~~Determine compressed image local directory storage and clean up~~ (using device managed cache directory)
 - ~~Determine onSelected/compressed response object~~
 - ~~Work in required parameterized options~~
-- Animation and loading screens
+- ~~Animation and loading screens~~
+- create example app and screenshots
 - Test & update documentation
 
 ## Required Options

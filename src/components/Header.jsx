@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 // styles
 const styles = StyleSheet.create({
 	headerWrap: {
+		position: "relative",
+		zIndex: 300,
 		backgroundColor: "white",
 		height: 60,
 		width: "100%",
@@ -30,22 +32,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default function Header({
-	cancelText,
-	cancelFunc,
-	confirmText,
-	confirmFunc,
-	processingImages,
-	headingText,
-	colors,
-}) {
+export default function Header({ cancelText, cancelFunc, confirmText, confirmFunc, processingImages, headingText, colors }) {
 	return (
 		<View style={styles.headerWrap}>
 			<TouchableOpacity onPress={cancelFunc} style={styles.buttonWrap}>
-				<Text
-					allowFontScaling={false}
-					style={[styles.buttonText, { color: colors.cancelButton }]}
-				>
+				<Text allowFontScaling={false} style={[styles.buttonText, { color: colors.cancelButton }]}>
 					{cancelText}
 				</Text>
 			</TouchableOpacity>
@@ -66,10 +57,7 @@ export default function Header({
 				}}
 				style={styles.buttonWrap}
 			>
-				<Text
-					allowFontScaling={false}
-					style={[styles.buttonText, { color: colors.confirmButton }]}
-				>
+				<Text allowFontScaling={false} style={[styles.buttonText, { color: colors.confirmButton }]}>
 					{confirmText}
 				</Text>
 			</TouchableOpacity>

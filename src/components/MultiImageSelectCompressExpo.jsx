@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import {
-	StyleSheet,
 	View,
 	SafeAreaView,
 	FlatList,
@@ -9,26 +7,14 @@ import {
 	Modal,
 } from "react-native";
 import PropTypes from "prop-types";
-
 import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
 import useMediaLibraryImages from "../hooks/useMediaLibraryImages";
 import Header from "./Header";
 import ImageTile from "./ImageTile";
 import EmptyList from "./EmptyList";
+import LoadingView from "./LoadingView";
 import Colors from "../constants/Colors";
-
-const styles = StyleSheet.create({
-	container: {
-		width: "100%",
-		height: "100%",
-		position: "absolute",
-		top: 0,
-		left: 0,
-		zIndex: 300,
-		backgroundColor: "#fefefe",
-	},
-});
 
 export default function MultiImageSelectCompressExpo({
 	open,
@@ -49,13 +35,18 @@ export default function MultiImageSelectCompressExpo({
 	const combinedColors = { ...Colors, ...colorConfig };
 	const [selectedImages, setSelectedImages] = useState({});
 	const [processingImages, setProcessingImages] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+	const [imagesLoaded, setImagesLoaded] = useState(0);
 	const [{ images, fetchMedia, resetImageState }] = useMediaLibraryImages();
-	// reset to inital state
+
+	// reset to initial state
 	const reset = () => {
 		onCancelPress();
 		resetImageState();
 		setSelectedImages({});
 		setProcessingImages(false);
+		setIsLoading(true);
+		setImagesLoaded(0);
 	};
 	// internal call to reset after cancel press
 	const internalCancelPress = () => {
@@ -65,6 +56,15 @@ export default function MultiImageSelectCompressExpo({
 	const onImagesProcessed = (processedImages) => {
 		onProcessingDone(processedImages);
 		reset();
+	};
+	// instead of arbitrary fade out use based on images loaded
+	const markImageLoaded = () => {
+		if (!!images && images.length > 10) {
+			setImagesLoaded(imagesLoaded + 1);
+			if (imagesLoaded > 10) {
+				setIsLoading(false);
+			}
+		}
 	};
 	// get full uri and filesystem info
 	const getFilesystemInfo = (imagesToFind) => {
@@ -109,7 +109,7 @@ export default function MultiImageSelectCompressExpo({
 			],
 			{
 				compress: compressionLevel,
-			}
+			},
 		);
 	};
 
@@ -176,6 +176,7 @@ export default function MultiImageSelectCompressExpo({
 				selectImage={selectImage}
 				processingImages={processingImages}
 				colors={combinedColors}
+				markImageLoaded={markImageLoaded}
 			/>
 		);
 	};
@@ -199,16 +200,11 @@ export default function MultiImageSelectCompressExpo({
 			/>
 		);
 	};
+
 	return (
-		<Modal
-			animationType="slide"
-			transparent
-			visible={open}
-			onRequestClose={() => {
-				console.log("Modal has been closed.");
-			}}
-		>
-			<SafeAreaView style={styles.container}>
+		<Modal animationType="slide" visible={open}>
+			<SafeAreaView>
+				<LoadingView visible={isLoading} colors={combinedColors} />
 				<Header
 					processingImages={processingImages}
 					cancelText={cancelText}
