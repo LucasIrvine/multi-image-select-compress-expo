@@ -53,12 +53,6 @@ export default function LoadingView({ visible, colors }) {
 		>
 			<View style={styles.textWrap}>
 				<ActivityIndicator size="large" color={colors.lightText} />
-				<Text
-					allowFontScaling={false}
-					style={[styles.loadingText, { color: colors.lightText }]}
-				>
-					... Loading Images ...
-				</Text>
 			</View>
 		</Animated.View>
 	);

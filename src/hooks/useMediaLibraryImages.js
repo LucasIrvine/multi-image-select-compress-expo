@@ -30,7 +30,7 @@ const useMediaLibraryImages = () => {
 		try {
 			// initial params
 			const params = {
-				first: 50,
+				first: 24,
 			};
 			// if current count
 			if (pagingCursor) {

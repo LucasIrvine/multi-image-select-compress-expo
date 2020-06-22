@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
 		zIndex: 300,
 		backgroundColor: "white",
 		height: 60,
-		width: "100%",
+		width: "98%",
+		paddingHorizontal: "1%",
 		justifyContent: "space-between",
 		alignItems: "center",
 		flexDirection: "row",
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 	},
 	headingText: {
 		fontSize: 18,
-		width: "60%",
+		width: "50%",
 		textAlign: "center",
 		color: "#000000",
 		fontWeight: "bold",
