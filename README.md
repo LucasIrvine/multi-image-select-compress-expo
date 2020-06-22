@@ -12,8 +12,11 @@ A react native component that allows the user to select one or more images from 
 - ~~Determine onSelected/compressed response object~~
 - ~~Work in required parameterized options~~
 - ~~Animation and loading screens~~
-- create example app and screenshots
-- Test & update documentation
+- ~~create example app and screenshots~~
+- Processing Loading view
+- Tests
+- Update Readme
+- Publish release tag
   
 ## Usage
 
@@ -34,6 +37,7 @@ import MultiImageSelectCompressExpo from "multi-image-select-compress-expo";
     onProcessingDone={(images) => console.log(images)}
 />
 ```
+
 <img src="examples/gifs/image-select-default-optimized.gif" alt="example gif" width="200"/>
 
 
