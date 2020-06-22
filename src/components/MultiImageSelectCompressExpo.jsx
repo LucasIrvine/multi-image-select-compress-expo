@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-	View,
-	SafeAreaView,
-	FlatList,
-	Dimensions,
-	Modal,
-} from "react-native";
+import { View, SafeAreaView, FlatList, Dimensions, Modal } from "react-native";
 import PropTypes from "prop-types";
 import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
@@ -59,9 +53,9 @@ export default function MultiImageSelectCompressExpo({
 	};
 	// instead of arbitrary fade out use based on images loaded
 	const markImageLoaded = () => {
-		if (!!images && images.length > 10) {
+		if (!!images && images.length > 3) {
 			setImagesLoaded(imagesLoaded + 1);
-			if (imagesLoaded > 10) {
+			if (imagesLoaded > 3) {
 				setIsLoading(false);
 			}
 		}
@@ -109,7 +103,7 @@ export default function MultiImageSelectCompressExpo({
 			],
 			{
 				compress: compressionLevel,
-			},
+			}
 		);
 	};
 
@@ -196,7 +190,7 @@ export default function MultiImageSelectCompressExpo({
 				}}
 				onEndReachedThreshold={onEndReachedThreshold}
 				ListEmptyComponent={<EmptyList colors={combinedColors} />}
-				initialNumToRender={50}
+				initialNumToRender={24}
 			/>
 		);
 	};

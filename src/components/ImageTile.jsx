@@ -31,7 +31,7 @@ export default function ImageTile({
 	const fadeIn = () => {
 		Animated.timing(fadeAnimation, {
 			toValue: 1,
-			duration: 300,
+			duration: 200,
 			useNativeDriver: true,
 		}).start();
 	};
